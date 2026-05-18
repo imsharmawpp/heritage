@@ -970,19 +970,28 @@ body.cursor-hover #cursor-dot { background: var(--gold-lt); }
 }
 .hhf-card:hover::before { transform: scaleX(1); }
 .hhf-card-icon {
-  width: 48px; height: 48px;
-  background: var(--gold-glow);
-  border: 1px solid var(--gold-dim);
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  margin-bottom: 24px;
-  transition: background 0.3s, transform 0.3s var(--ease-back);
+  width: 56px; height: 56px;
+  margin-bottom: 28px;
+  color: var(--gold);
+  opacity: 0.85;
+  transition: transform 0.5s var(--ease-expo), opacity 0.4s, color 0.4s;
 }
+.hhf-card-icon svg {
+  width: 100%; height: 100%;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hhf-card-icon svg .accent { stroke: var(--gold-lt); }
+.hhf-card-icon svg .fill   { fill: var(--gold); stroke: none; opacity: 0.18; }
 .hhf-card:hover .hhf-card-icon {
-  background: rgba(184,149,106,0.25);
-  transform: scale(1.1) rotate(-4deg);
+  transform: translateY(-3px);
+  color: var(--gold-lt);
+  opacity: 1;
 }
+.hhf-card:hover .hhf-card-icon svg .fill { opacity: 0.28; }
 .hhf-card-num {
   position: absolute;
   top: 28px; right: 28px;
@@ -1025,6 +1034,65 @@ body.cursor-hover #cursor-dot { background: var(--gold-lt); }
   font-family: var(--ff-mono);
 }
 .hhf-scroll-hint svg { color: var(--gold); }
+
+/* HHF Tail CTA — bridges to enquiry section */
+.hhf-tail {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding: 0 clamp(20px, 4vw, 60px);
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  flex-wrap: wrap;
+}
+.hhf-tail-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+  min-width: 80px;
+}
+.hhf-tail-text {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 21px);
+  color: var(--slate-lt);
+  line-height: 1.4;
+  flex: 0 1 auto;
+}
+.hhf-tail-text em {
+  color: var(--gold);
+  font-style: italic;
+}
+.hhf-tail-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--ff-sans);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold-dim);
+  padding: 12px 0;
+  cursor: none;
+  transition: color 0.4s var(--ease-expo), border-color 0.4s var(--ease-expo), gap 0.4s var(--ease-expo);
+  flex-shrink: 0;
+}
+.hhf-tail-cta svg {
+  width: 32px; height: 8px;
+  transition: transform 0.5s var(--ease-expo);
+}
+.hhf-tail-cta:hover {
+  color: var(--gold-lt);
+  border-color: var(--gold);
+  gap: 22px;
+}
+.hhf-tail-cta:hover svg { transform: translateX(8px); }
+@media (max-width: 720px) {
+  .hhf-tail { flex-direction: column; align-items: flex-start; }
+  .hhf-tail-line { display: none; }
+}
 
 /* ============================================================
    TWO PROJECTS SECTION
@@ -1291,6 +1359,261 @@ body.cursor-hover #cursor-dot { background: var(--gold-lt); }
   background: rgba(245,241,235,0.06);
 }
 .register-input::placeholder { color: var(--slate); }
+
+/* ============================================================
+   PRIVATE PREVIEW (home conversion section)
+   ============================================================ */
+.preview-section {
+  background: linear-gradient(180deg, var(--ink-c) 0%, var(--ink) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.preview-section::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(184,149,106,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.preview-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+}
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  position: relative;
+}
+.preview-pitch {
+  position: relative;
+  padding-right: clamp(0px, 2vw, 24px);
+}
+.preview-points {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 460px;
+}
+.preview-point {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.preview-point-icon {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  color: var(--gold);
+  display: block;
+  margin-top: 2px;
+}
+.preview-point-icon svg {
+  width: 100%; height: 100%;
+}
+.preview-point-icon .dot { opacity: 0.95; }
+.preview-point h4 {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(17px, 1.4vw, 20px);
+  color: var(--cream);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+.preview-point p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--slate);
+}
+.preview-disclosure {
+  margin-top: 36px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  border-top: 1px solid rgba(184,149,106,0.12);
+  padding-top: 18px;
+  max-width: 460px;
+}
+.preview-disclosure em { color: var(--gold); font-style: italic; font-weight: 400; }
+
+/* — Form — */
+.preview-form {
+  background: rgba(245,241,235,0.025);
+  border: 1px solid rgba(184,149,106,0.18);
+  padding: clamp(28px, 3.5vw, 48px);
+  position: relative;
+}
+.preview-form::before,
+.preview-form::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border: 1px solid var(--gold);
+}
+.preview-form::before { top: -1px;    left: -1px;  border-right: none; border-bottom: none; }
+.preview-form::after  { bottom: -1px; right: -1px; border-left: none;  border-top: none; }
+
+.preview-form-head { margin-bottom: 32px; }
+.preview-form-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 14px;
+}
+.preview-form-title {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.1;
+  color: var(--cream);
+}
+
+.preview-field {
+  position: relative;
+  margin-bottom: 26px;
+}
+.preview-field > label {
+  display: block;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+.preview-field > label .opt {
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--slate);
+  opacity: 0.6;
+  font-size: 9.5px;
+}
+.preview-field input[type="text"],
+.preview-field input[type="tel"],
+.preview-field input[type="email"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(184,149,106,0.28);
+  border-radius: 0;
+  padding: 8px 0 12px;
+  color: var(--cream);
+  font-family: var(--ff-serif);
+  font-size: clamp(17px, 1.5vw, 20px);
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.4s var(--ease-expo);
+}
+.preview-field input::placeholder {
+  color: rgba(154,149,144,0.4);
+  font-style: italic;
+}
+.preview-field input:focus {
+  border-bottom-color: var(--gold);
+}
+.preview-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+/* Brass chip radios */
+.preview-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.preview-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.preview-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.preview-chip span {
+  display: inline-block;
+  padding: 9px 18px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate-lt);
+  border: 1px solid rgba(184,149,106,0.25);
+  cursor: none;
+  transition: all 0.3s var(--ease-expo);
+}
+.preview-chip:hover span {
+  color: var(--cream);
+  border-color: var(--gold-dim);
+}
+.preview-chip input:checked + span {
+  color: var(--ink);
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 4px 24px rgba(184,149,106,0.18);
+}
+
+/* Submit — brass arrow link, not a pill */
+.preview-submit {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--gold);
+  padding: 14px 2px 16px;
+  color: var(--gold);
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: none;
+  transition: color 0.4s var(--ease-expo), gap 0.5s var(--ease-expo), border-color 0.4s;
+}
+.preview-submit svg {
+  width: 36px; height: 8px;
+  transition: transform 0.55s var(--ease-expo);
+}
+.preview-submit:hover {
+  color: var(--gold-lt);
+  gap: 24px;
+  border-color: var(--gold-lt);
+}
+.preview-submit:hover svg { transform: translateX(10px); }
+
+.preview-form-note {
+  margin-top: 22px;
+  font-size: 11px;
+  color: var(--slate);
+  letter-spacing: 0.04em;
+}
+.preview-form-note b { color: var(--gold); font-weight: 500; }
+
+@media (max-width: 900px) {
+  .preview-grid { grid-template-columns: 1fr; }
+  .preview-pitch { padding-right: 0; }
+  .preview-disclosure { max-width: none; }
+}
+@media (max-width: 520px) {
+  .preview-field-row { grid-template-columns: 1fr; }
+  .preview-chips { gap: 8px; }
+}
 
 /* ============================================================
    FOOTER
@@ -2249,8 +2572,9 @@ footer {
     <div class="hhf-header">
       <div class="hhf-header-inner">
         <div>
-          <span class="eyebrow reveal">Holiday Home Framework</span>
-          <h2 class="display-lg reveal delay-1" style="color:var(--cream); max-width:560px;">Six Pillars That Make a<br><em style="color:var(--gold);">Hill Property Work</em></h2>
+          <span class="eyebrow reveal">The Holiday Home Framework</span>
+          <h2 class="display-lg reveal delay-1" style="color:var(--cream); max-width:620px;">Six Quiet Pillars Behind a<br><em style="color:var(--gold);">Hill Property That Compounds</em></h2>
+          <p class="body-lg reveal delay-2" style="max-width:540px; margin-top:20px;">Most second homes are bought on emotion and held on hope. Ours are stress-tested on six fundamentals before a single plot is offered. Read them. Then decide if you'd like a private briefing.</p>
         </div>
         <div class="hhf-scroll-hint reveal delay-2">
           <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 6h18M12 1l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2260,54 +2584,126 @@ footer {
     </div>
     <div class="hhf-scroll-track" id="hhf-track">
 
+      <!-- 01 — Tourism Demand : layered mountain ridges -->
       <div class="hhf-card">
         <div class="hhf-card-num">01</div>
-        <div class="hhf-card-icon">🏔️</div>
-        <h3 class="hhf-card-title">Tourism Demand</h3>
-        <p class="hhf-card-desc">Lansdowne receives year-round tourists — cooler summers draw families from the plains, misty winters attract weekend escapees. Occupancy doesn't vanish.</p>
-        <span class="hhf-card-tag">Growing Year-Round</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <path class="fill" d="M4 46 L18 22 L28 36 L36 26 L46 38 L52 30 L52 46 Z"/>
+            <path d="M4 46 L18 22 L28 36 L36 26 L46 38 L52 30"/>
+            <path class="accent" d="M22 28 L24.5 30.5 M30 32 L32.5 34.5 M40 32 L43 35"/>
+            <circle class="accent" cx="44" cy="14" r="2.5"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">Year-Round Demand</h3>
+        <p class="hhf-card-desc">Lansdowne fills calendars in every season — summer escapes from the plains, winter mist for Delhi weekenders, monsoon writers' retreats. Occupancy doesn't disappear in October.</p>
+        <span class="hhf-card-tag">Demand · 4 Seasons</span>
       </div>
 
+      <!-- 02 — Rental Income : stacked yield discs (rupee marks) -->
       <div class="hhf-card">
         <div class="hhf-card-num">02</div>
-        <div class="hhf-card-icon">💰</div>
-        <h3 class="hhf-card-title">Rental Income</h3>
-        <p class="hhf-card-desc">Airbnb and corporate retreat demand has transformed Himalayan foothills into high-yield short-term rental markets. Your property earns while you're in the city.</p>
-        <span class="hhf-card-tag">Airbnb + Retreats</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <ellipse class="fill" cx="28" cy="22" rx="14" ry="4"/>
+            <path d="M14 22 V32 a14 4 0 0 0 28 0 V22"/>
+            <path d="M14 32 V42 a14 4 0 0 0 28 0 V32"/>
+            <ellipse cx="28" cy="22" rx="14" ry="4"/>
+            <ellipse cx="28" cy="32" rx="14" ry="4"/>
+            <path class="accent" d="M24 18 h6 M24 21 h6 M27 18 v6 M30 22 a3 3 0 0 1 -3 2"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">Rental Yield That Pays</h3>
+        <p class="hhf-card-desc">Lansdowne Airbnb tariffs sit at <b style="color:var(--gold-lt);font-weight:500;">₹4,000–₹15,000</b> a night with weekend occupancy above 70%. A well-finished villa earns while you're back in the city.</p>
+        <span class="hhf-card-tag">₹4K–₹15K / Night</span>
       </div>
 
+      <!-- 03 — Himalayan View : window framing peaks + sun -->
       <div class="hhf-card">
         <div class="hhf-card-num">03</div>
-        <div class="hhf-card-icon">🌄</div>
-        <h3 class="hhf-card-title">Himalayan View</h3>
-        <p class="hhf-card-desc">At 1706m altitude in Pauri Garhwal, Lansdowne commands unobstructed Himalayan panoramas. Cantonment law ensures they stay unobstructed. Forever.</p>
-        <span class="hhf-card-tag">Protected Vistas</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <rect x="8" y="10" width="40" height="36" rx="0.5"/>
+            <path class="fill" d="M10 38 L20 24 L28 32 L36 22 L46 36 L46 44 L10 44 Z"/>
+            <path d="M10 38 L20 24 L28 32 L36 22 L46 36"/>
+            <circle class="accent" cx="38" cy="18" r="3.5"/>
+            <path d="M28 10 V46 M8 28 H48"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">A View Protected by Law</h3>
+        <p class="hhf-card-desc">At <b style="color:var(--gold-lt);font-weight:500;">1,706 m</b> in Pauri Garhwal, cantonment regulation permanently prohibits high-rises. Your panorama of Nanda Devi can't be built over. Not next year. Not ever.</p>
+        <span class="hhf-card-tag">Cantonment Protected</span>
       </div>
 
+      <!-- 04 — Appreciation : ascending bars + arrow -->
       <div class="hhf-card">
         <div class="hhf-card-num">04</div>
-        <div class="hhf-card-icon">📈</div>
-        <h3 class="hhf-card-title">Appreciation (AOI)</h3>
-        <p class="hhf-card-desc">Supply is permanently constrained — cantonment limits development. Tourism demand is rising. The math of scarcity plus demand points in one direction: steady compounding.</p>
-        <span class="hhf-card-tag">Supply Constrained</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <rect class="fill" x="8"  y="36" width="6" height="10"/>
+            <rect class="fill" x="18" y="28" width="6" height="18"/>
+            <rect class="fill" x="28" y="20" width="6" height="26"/>
+            <rect class="fill" x="38" y="12" width="6" height="34"/>
+            <rect x="8"  y="36" width="6" height="10"/>
+            <rect x="18" y="28" width="6" height="18"/>
+            <rect x="28" y="20" width="6" height="26"/>
+            <rect x="38" y="12" width="6" height="34"/>
+            <path class="accent" d="M6 30 L16 22 L26 14 L36 8 L48 6 M44 4 L48 6 L46 10"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">Scarcity → Appreciation</h3>
+        <p class="hhf-card-desc">Supply is permanently capped by cantonment law. Demand is rising every year. The math of constrained supply meeting expanding demand has only ever produced one outcome: steady, unhurried compounding.</p>
+        <span class="hhf-card-tag">Supply-Capped Forever</span>
       </div>
 
+      <!-- 05 — Second Home : pitched-roof villa with door + chimney -->
       <div class="hhf-card">
         <div class="hhf-card-num">05</div>
-        <div class="hhf-card-icon">🏡</div>
-        <h3 class="hhf-card-title">Second Home</h3>
-        <p class="hhf-card-desc">4-hour drive from Delhi NCR — no flights, no airports, no hassle. A genuine family escape that you'll actually use. The second home that doesn't feel aspirational; it feels earned.</p>
-        <span class="hhf-card-tag">4hr from Delhi NCR</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <path class="fill" d="M10 28 L28 12 L46 28 L46 46 L10 46 Z"/>
+            <path d="M10 28 L28 12 L46 28"/>
+            <path d="M10 28 V46 H46 V28"/>
+            <rect class="accent" x="38" y="14" width="4" height="6"/>
+            <rect x="24" y="32" width="8" height="14"/>
+            <path class="accent" d="M16 32 H22 V38 H16 Z"/>
+            <path d="M28 12 L28 8"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">Close Enough to Actually Use</h3>
+        <p class="hhf-card-desc"><b style="color:var(--gold-lt);font-weight:500;">Four hours</b> from Delhi NCR via NH-58 — no airport, no check-in, no flights. The kind of escape your family will use every month, not just plan to use someday.</p>
+        <span class="hhf-card-tag">4 Hours · Drive-In</span>
       </div>
 
+      <!-- 06 — Infrastructure : highway interchange / road network -->
       <div class="hhf-card">
         <div class="hhf-card-num">06</div>
-        <div class="hhf-card-icon">🛣️</div>
-        <h3 class="hhf-card-title">Infrastructure</h3>
-        <p class="hhf-card-desc">NH-58 and NH-34 access is improving. Tourism infrastructure — hotels, roads, services — is being built ahead of demand. You want to arrive before the infrastructure, not after.</p>
-        <span class="hhf-card-tag">Ahead of the Build</span>
+        <div class="hhf-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <path d="M4 46 C 14 46, 18 30, 28 30 C 38 30, 42 14, 52 14"/>
+            <path class="accent" d="M4 50 C 14 50, 18 34, 28 34 C 38 34, 42 18, 52 18"/>
+            <circle class="fill" cx="28" cy="32" r="3.5"/>
+            <circle cx="28" cy="32" r="3.5"/>
+            <circle cx="10" cy="46" r="2"/>
+            <circle cx="46" cy="14" r="2"/>
+            <path d="M28 6 V12 M22 9 H34"/>
+          </svg>
+        </div>
+        <h3 class="hhf-card-title">Arrive Before the Build-Out</h3>
+        <p class="hhf-card-desc">NH-58 is being widened. Tourism infrastructure — boutique hotels, services, signage — is being commissioned now. The right time to enter a market is before the infrastructure catches up to the thesis, not after.</p>
+        <span class="hhf-card-tag">Pre-Build Window</span>
       </div>
 
+    </div>
+
+    <!-- HHF tail CTA -->
+    <div class="hhf-tail">
+      <div class="hhf-tail-line"></div>
+      <p class="hhf-tail-text">Six pillars. One quiet conviction. <em>If three of them resonate,</em> we'd suggest a private briefing.</p>
+      <a href="#home-preview" class="hhf-tail-cta" data-scrollto="home-preview">
+        <span>Request a Private Briefing</span>
+        <svg viewBox="0 0 32 8" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 4 H29 M25 1 L29 4 L25 7"/></svg>
+      </a>
     </div>
   </section>
 
@@ -2403,17 +2799,117 @@ footer {
     </div>
   </div>
 
-  <!-- REGISTER INTEREST -->
-  <section class="register-section section" data-section="Register">
-    <div class="container" style="text-align:center;">
-      <span class="eyebrow reveal">Register Interest</span>
-      <h2 class="display-lg reveal delay-1" style="color:var(--cream); max-width:600px; margin:0 auto;">Be First.<br><em style="color:var(--gold);">Prices Wait for No One.</em></h2>
-      <p class="body-lg reveal delay-2" style="max-width:480px; margin:20px auto 0;">Register your interest today and receive project updates, pricing previews, and priority access before public launch.</p>
-      <form class="register-form reveal delay-3" id="home-register-form">
-        <input type="text" class="register-input" placeholder="Your name" name="name" required>
-        <input type="tel" class="register-input" placeholder="Phone / WhatsApp" name="phone" required>
-        <button type="submit" class="btn btn-gold">Notify Me</button>
-      </form>
+  <!-- PRIVATE PREVIEW — primary enquiry section -->
+  <section class="preview-section section" data-section="Preview" id="home-preview">
+    <div class="container">
+      <div class="preview-grid">
+
+        <!-- Left: pitch -->
+        <div class="preview-pitch">
+          <span class="eyebrow reveal">The Private Preview</span>
+          <h2 class="display-lg reveal delay-1" style="color:var(--cream); max-width:520px;">Quiet Markets.<br><em style="color:var(--gold);">Quieter Allocations.</em></h2>
+          <p class="body-lg reveal delay-2" style="margin-top:24px; max-width:480px;">Inventory in both projects is allocated privately — to investors who reach out before public launch. We share project decks, plot maps, pricing, and timelines on a one-on-one basis.</p>
+
+          <!-- Trust signals with micro icons -->
+          <div class="preview-points reveal delay-3">
+            <div class="preview-point">
+              <span class="preview-point-icon" aria-hidden="true">
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                  <rect x="4" y="4" width="9" height="9"/>
+                  <rect x="15" y="4" width="9" height="9"/>
+                  <rect x="4" y="15" width="9" height="9"/>
+                  <rect class="dot" x="15" y="15" width="9" height="9" fill="currentColor" stroke="none"/>
+                </svg>
+              </span>
+              <div>
+                <h4>Pre-Launch Allocation</h4>
+                <p>Private pricing &amp; plot selection 6–8 weeks before public launch.</p>
+              </div>
+            </div>
+
+            <div class="preview-point">
+              <span class="preview-point-icon" aria-hidden="true">
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                  <circle cx="14" cy="14" r="10"/>
+                  <path d="M14 4 L17 14 L14 24 L11 14 Z" fill="currentColor" stroke="none" opacity="0.3"/>
+                  <path d="M14 4 L17 14 L14 24 L11 14 Z"/>
+                  <path d="M4 14 H8 M20 14 H24"/>
+                </svg>
+              </span>
+              <div>
+                <h4>Concierge Site Visit</h4>
+                <p>Curated visits to Bahadurgarh &amp; Lansdowne, arranged at your convenience.</p>
+              </div>
+            </div>
+
+            <div class="preview-point">
+              <span class="preview-point-icon" aria-hidden="true">
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                  <path d="M3 22 C 7 12, 11 18, 14 14 C 17 10, 21 16, 25 8"/>
+                  <circle cx="3" cy="22" r="1.5" fill="currentColor"/>
+                  <circle cx="25" cy="8"  r="1.5" fill="currentColor"/>
+                </svg>
+              </span>
+              <div>
+                <h4>Honest Investment Memo</h4>
+                <p>A written thesis, projections, and risks — sent before any decision.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="preview-disclosure reveal delay-4"><em>Discretion assured.</em> &nbsp;Your details stay with our partners — never shared, never sold.</p>
+        </div>
+
+        <!-- Right: form -->
+        <form class="preview-form reveal delay-2" id="home-register-form">
+          <div class="preview-form-head">
+            <span class="preview-form-eyebrow">01 — Begin a Conversation</span>
+            <h3 class="preview-form-title">Tell us a little<br>about you.</h3>
+          </div>
+
+          <div class="preview-field">
+            <label for="pf-name">Your name</label>
+            <input type="text" id="pf-name" name="name" required autocomplete="name">
+          </div>
+
+          <div class="preview-field-row">
+            <div class="preview-field">
+              <label for="pf-phone">Phone</label>
+              <input type="tel" id="pf-phone" name="phone" required autocomplete="tel" placeholder="+91 9XXXXXXXXX">
+            </div>
+            <div class="preview-field">
+              <label for="pf-email">Email <span class="opt">(optional)</span></label>
+              <input type="email" id="pf-email" name="email" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="preview-field">
+            <label>Project of interest</label>
+            <div class="preview-chips">
+              <label class="preview-chip">
+                <input type="radio" name="project" value="bahadurgarh">
+                <span>Bahadurgarh, NCR</span>
+              </label>
+              <label class="preview-chip">
+                <input type="radio" name="project" value="lansdowne">
+                <span>Lansdowne Hills</span>
+              </label>
+              <label class="preview-chip">
+                <input type="radio" name="project" value="both" checked>
+                <span>Both</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="preview-submit">
+            <span>Request Private Preview</span>
+            <svg viewBox="0 0 36 8" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 4 H33 M29 1 L33 4 L29 7"/></svg>
+          </button>
+
+          <p class="preview-form-note">A senior advisor will be in touch within <b>24 hours</b> &nbsp;·&nbsp; Mon–Sat, 10am–7pm IST</p>
+        </form>
+
+      </div>
     </div>
   </section>
 
@@ -3855,6 +4351,20 @@ function handleForm(formId, successMsg) {
 handleForm('home-register-form', 'Thank you! You\'ll receive project updates shortly.');
 handleForm('bah-notify-form', 'Registered! We\'ll notify you before Bahadurgarh launches.');
 handleForm('lan-notify-form', 'Registered! We\'ll notify you before Lansdowne launches.');
+
+/* ============================================================
+   IN-PAGE SMOOTH SCROLL (data-scrollto)
+   ============================================================ */
+document.addEventListener('click', e => {
+  const trig = e.target.closest('[data-scrollto]');
+  if (!trig) return;
+  const target = document.getElementById(trig.dataset.scrollto);
+  if (!target) return;
+  e.preventDefault();
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+  const top = target.getBoundingClientRect().top + window.scrollY - navH - 12;
+  window.scrollTo({ top, behavior: 'smooth' });
+});
 handleForm('contact-form', 'Enquiry sent! Our team will respond within 24 hours.');
 
 /* ============================================================
